@@ -1,3 +1,4 @@
+
 * {
     font-size: 1rem;
     margin: 0;
@@ -5,23 +6,31 @@
     box-sizing: border-box;
     line-height: 1.2em;
 }
+a {
+    color:#337ab7;
+}
+a:hover, a:focus {
+    opacity: .7;
+    background: none;  
+}
 
-label {font-size:.8em; opacity: .6; display: block; margin:.3em 0;}
+label {font-size:.8em; opacity: .8; display: block; font-weight: 600; margin:.3em 0;}
 .frmControlGroup .frmControl:first-child {border-radius: 5px 5px 0 0 ;}
 .frmControlGroup .frmControl {border-radius: 0; margin-top:-1px;}
 .frmControlGroup .frmControl:last-child {border-radius: 0 0 5px 5px; position: relative;}
 .frmControl {
-    padding:8px 12px; 
+    padding:8px 12px;
     /* margin:.3em 0; */
-    width: 100%; 
-    border: 1px solid #DDD; 
-    border-radius: 7px; 
-    font-size:.9em; 
+    width: 100%;
+    border: 1px solid #DDD;
+    border-radius: 7px;
+    font-size:.9em;
     font-weight: 700;
     box-shadow: var(--color-black-opacity) 0px 1px 4px;
     transition: .2s;
 }
 select.frmControl {padding-left:.5em; }
+.frmControl:hover {box-shadow: var(--color-black-opacity-hover) 0px 1px 4px;}
 .frmControl:focus, .frmControl:active {
     outline-style: inset;
     outline-width: .3em;
@@ -35,23 +44,24 @@ select.frmControl {padding-left:.5em; }
 }
 
 .submitButton {
-    background-color: #00cc66; 
-    padding:1em; 
-    margin-top:.5em;
-    width: 100%; 
-    border: 1px solid #00cc66; 
-    border-radius: 4px; 
+    background-color: #00cc66;
+    padding:1em;
+    margin-top:1em;
+    width: 100%;
+    border: 1px solid #00cc66;
+    border-radius: 7px; 
     transition: .2s;
     cursor: pointer;
     font-weight: 700;
     font-size: 1em;
 }
 /* .submitButton:hover {} */
+.submitButton:hover, .submitButton:focus {background-color: #00c161;}
 .submitButton:active {
     outline-style: inset;
     outline-width: .3em;
     outline-color: rgba(0, 0, 0, .05);
-    background-color: #0dfd8d;
+    background-color: #01d86d;
 }
 
 
@@ -74,13 +84,33 @@ select.frmControl {padding-left:.5em; }
 .slide-fade-enter-active {
     transition: all 0.5s ease-out;
   }
-  
+
   /* .slide-fade-leave-active {
-    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+    transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
   } */
-  
+
   .slide-fade-enter-from,
   .slide-fade-leave-to {
     transform: translateX(20px);
     opacity: 0;
+  }
+
+
+
+  .bounce-enter-active {
+    animation: bounce-in 0.5s;
+  }
+  .bounce-leave-active {
+    animation: bounce-in 0.5s reverse;
+  }
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.25);
+    }
+    100% {
+      transform: scale(1);
+    }
   }

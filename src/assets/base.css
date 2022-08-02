@@ -22,6 +22,7 @@
 
   --color-white-opacity: rgba(255, 255, 255, .15);
   --color-black-opacity: rgba(0, 0, 0, 0.15);
+  --color-black-opacity-hover: rgba(0, 0, 0, 0.3);
 }
 
 /* semantic color variables for this project */

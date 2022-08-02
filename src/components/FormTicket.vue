@@ -9,17 +9,19 @@
                 </p>
 
                 <div class="boxPayMethod">
-                    <p>
+                    <h3>
                         Payment method
-                    </p>
+                    </h3>
                     <p class="payMethod">
                         <button
+                            class="frmControl"
                             v-bind:class="[pay_card ? 'active' : null, '']"
                             @click.prevent="changePayCard()"
                         >
-                            <img src="../assets/credit-card-black.svg" /> Cartão
+                            <img src="../assets/credit-card-black-2.svg" /> Cartão
                         </button>
                         <button
+                            class="frmControl"
                             v-bind:class="[pay_boleto ? 'active' : null, '']"
                             @click.prevent="changePayBoleto()"
                         >
@@ -28,24 +30,11 @@
                     </p>
                 </div>
 
-                <Transition name="slide-fade">
+                <Transition name="slide-fade" appear >
                     <div v-if="this.pay_card">
                         <p>
                             <label for="inpName">Name on card</label>
                             <input type="text" class="frmControl" id="inpName" name="" />
-                        </p>
-                    </div>
-                </Transition>
-
-                <Transition name="slide-fade">
-                    <div v-if="this.pay_boleto">
-                        <p>
-                            <label for="inpName">Name</label>
-                            <input type="text" class="frmControl" id="inpName" />
-                        </p>
-                        <p>
-                            <label for="inpCpfCnpj">CPF/CNPJ</label>
-                            <input type="text" class="frmControl" placeholder="" name="cpfCnpj" />
                         </p>
                         <div>
                             <label for="inpCpfCnpj">Billing address</label>
@@ -62,7 +51,23 @@
                                 </select>
                                 <input v-if="this.addressFilled" type="text" class="frmControl" placeholder="Postal code" name="" />
                             </p>
+                            <p>
+                                <a v-if="!this.addressFilled" href="#" @click.prevent="showFields" class="showFields">Enter address manually</a>
+                            </p>
                         </div>
+                    </div>
+                </Transition>
+
+                <Transition name="slide-fade">
+                    <div v-if="this.pay_boleto">
+                        <p>
+                            <label for="inpName">Name</label>
+                            <input type="text" class="frmControl" id="inpName" />
+                        </p>
+                        <p>
+                            <label for="inpCpfCnpj">CPF/CNPJ</label>
+                            <input type="text" class="frmControl" placeholder="" name="cpfCnpj" />
+                        </p>
                     </div>
                 </Transition>
 
@@ -96,9 +101,12 @@
             fillAddress() {
                 this.addressFilled = document.getElementById("inpAddress").value != "" ? true : false
             },
+            showFields(e) {
+                this.addressFilled = true
+            },
             onSubmit(e){
-                alert("DEV")
-                // e.preventDefault()
+                e.preventDefault()
+                // alert("DEV")
             }
         }
     }
@@ -113,7 +121,6 @@
     position: relative;
     top:0;
     right: 0;
-    /* width: 100%; */
     max-width: 500px;
     height: 100vh;
     background-color: #FFF;
@@ -123,7 +130,7 @@
   #formBox p {padding-bottom: .5em;}
 
 
-
+h3 {margin-bottom: .4em; font-weight: 600; font-size: .9em;}
   .boxPayMethod {padding: 1em 0;}
   .payMethod {display: flex; justify-content: space-between;}
   .payMethod span {
@@ -133,24 +140,21 @@
   .payMethod button {
     display: flex;
     align-items: center;
-    /* flex-direction: column; */
-    padding:.4em .6em .6em .6em;
-    font-size: .9em;
-    width: 49%;
-    border: 1px solid #CCC;
-    border-radius: 5px;
-    box-shadow: var(--color-black-opacity) 0px 1px 4px;
     background-color: #FFF;
     transition: .2s;
+    padding:1em;
     color: rgba(0, 0, 0, .4);
     cursor: pointer;
   }
+  .payMethod button:first-child {margin-right: 8px;}
   .payMethod button.active, .payMethod button.active:hover {
     border-color: rgba(0, 0, 0, .8);
     color: rgba(0, 0, 0, 1);
     font-weight: 600;
   }
-  .payMethod img {width:25px; height:20px; margin-right: .1em;;}
+  .payMethod img {width:25px; height:20px; margin-right: .1em; opacity:.4;}
+  .payMethod button.active img {opacity:1;}
+  .showFields {font-size: .8em; margin-left: 10px;}
 
 
 

@@ -10,15 +10,7 @@
           <div class="ticketList">
             <ul>
               <li v-for="ticket in tickets">
-                <section>
-                  <strong>{{ ticket.title }}</strong>
-                  <span class="price">{{ vueNumberFormat(ticket.price, {prefix: "R$"}) }}</span>
-                </section>
-                <button class="qtyButton" @click.prevent="addQty"> 
-                  Qtd <span>{{ ticket.qtd }}</span>
-                  <img src="../assets/arrow-down.svg" />
-                </button>
-                <small>{{ ticket.description }}</small>
+                <Ticket v-bind:ticket=ticket />
               </li>
             </ul>
             <p class="infoItem">Subtotal <span>{{ vueNumberFormat(this.subtotal, {prefix: "R$"}) }}</span></p>
@@ -34,31 +26,30 @@
 
 
 <script>
+    import Ticket from '../components/Ticket.vue'
     export default {
-        data(){
+        data() {
             return {
                 subtotal: 885,
                 totalDue: 885,
                 tickets: [{
-                        title: 'BlockchaIn Rio Festival Passaporte',
+                        title: "BlockchaIn Rio Festival Passaporte",
                         qtd: 1,
-                        price: 590.00,
-                        description: 'O maior festival de blockchain da América Latina, de 1 a 4 de setembro no Píer Mauá (RJ) | Direito ao BInRio NFT | De R$680 por R$590'
-                    },
-                    {
-                        title: 'BlockchaIn Rio Festival Passaporte - Meia-Entrada',
+                        price: 590,
+                        description: "O maior festival de blockchain da América Latina, de 1 a 4 de setembro no Píer Mauá (RJ) | Direito ao BInRio NFT | De R$680 por R$590"
+                    }, {
+                        title: "BlockchaIn Rio Festival Passaporte - Meia-Entrada",
                         qtd: 1,
-                        price: 295.00,
-                        description: 'Meia-entrada para estudantes e idosos | Último Lote Promocional - Direito ao BInRio NFT | De R$340 por R$295 | A entrada de menores seguirá a regulamentação do Estatuto da Criança e Adolescente (ECA)'
-                    },
+                        price: 295,
+                        description: "Meia-entrada para estudantes e idosos | Último Lote Promocional - Direito ao BInRio NFT | De R$340 por R$295 | A entrada de menores seguirá a regulamentação do Estatuto da Criança e Adolescente (ECA)"
+                    }
                 ]
-            }
+            };
         },
-        methods: {
-            addQty(){
-                alert("dev")
-            }
-        }
+        methods: {},
+        components: { 
+            Ticket 
+        },
     }
 </script>
 
@@ -72,26 +63,26 @@
   #ticketContent {
     color:white;
     display: flex;
+    align-items: center;
     justify-content: right;
-    /* align-items: center; */
     position: relative;
     top:0;
     left: 0;
     width: 50vw;
     min-height: 100vh;
-    background-color: #0a0051;
     border-right: 10px solid rgba(0, 0, 0, .4);
-    /* background: rgb(39,15,113);
-    background: -moz-linear-gradient(45deg, rgba(39,15,113,1) 30%, rgba(28,8,89,1) 90%);
-    background: -webkit-linear-gradient(45deg, rgba(39,15,113,1) 30%, rgba(28,8,89,1) 90%);
-    background: linear-gradient(45deg, rgba(39,15,113,1) 30%, rgba(28,8,89,1) 90%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#270f71",endColorstr="#1c0859",GradientType=1); */
+    background: rgb(11,75,139);
+    background: -moz-linear-gradient(45deg, rgba(11,75,139,0) 50%, rgba(0,0,0,0.3000849697885196) 100%);
+    background: -webkit-linear-gradient(45deg, rgba(11,75,139,0) 50%, rgba(0,0,0,0.3000849697885196) 100%);
+    background: linear-gradient(45deg, rgba(11,75,139,0) 50%, rgba(0,0,0,0.3000849697885196) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0b4b8b",endColorstr="#000000",GradientType=1);
+    background-color: #300a62;
   }
 
   #ticketBox {max-width: 450px; }
   #ticketBox header {
     border-bottom: 1px dashed var(--color-white-opacity);
-    padding: 0 .5em 1em 1em; 
+    padding: 0 1em 1.5em 1em; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -100,30 +91,33 @@
   h1 {
     display: flex; 
     align-items: center; 
-    font-weight: 700;
+    font-size: 1.3em;
+    font-weight: 900;
   }
   .logoClient {
-    width: 55px;
-    height: 55px;
-    border-radius: 100%;
+    max-width: 55px;
+    max-height: 55px;
+    border-radius: 7px;
     padding: .2em;
-    margin: 0 .5em 0 -.4em;
-    box-shadow: var(--color-white-opacity) 0 0 50px;
+    background-color: #FFF;
+    margin: 0 7px 0 -.5em;
+    box-shadow: var(--color-black-opacity) 0 0 50px;
   }
 
-  h2 {font-size: 1em; text-align: right; }
-  h2 span {opacity: .5; font-size: .8em;}
+  h2 {font-size: 1em;text-align: right; }
+  h2 span {opacity: .4; font-size: .7em;}
   h2 strong {
     display: block;
-    font-size: 1.7em;
-    font-weight: 700;
+    font-size: 1.5em;
+    line-height: 1em;
+    font-weight: 800;
   }
-  .tickets {display: flex; padding:1em 0 1em 1em; }
+  .tickets {display: flex; padding:1em .5em 1em 1em; }
   .tickets img {margin: .2em .5em 0 0; border-radius: 5px;}
 
   .ticketList ul li {
     list-style: none;
-    padding: .6em;
+    padding: .5em;
     border-radius:.3em;
     margin-bottom: .5em;
     background: rgb(0,0,0);
@@ -133,17 +127,11 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#20095e",GradientType=1);
   }
   /* .ticketList ul li:last-child {margin-bottom: 1.5em;} */
-  .ticketList ul strong {font-size:.9em; line-height: 1.4em; font-weight: 500; display: block; margin-bottom: .4em;}
-  .ticketList ul small {font-size:.8em; opacity: .5; line-height: 1.4em; display: block;}
-  .ticketList ul .price {font-size:.9em; margin-left: .5em;}
-
-  .ticketList ul li section {display: flex; justify-content: space-between;}
-
-  .ticketList .infoItem {padding: .6em 1em;}
+  .ticketList .infoItem {padding: .5em;}
   .ticketList .infoItem * {font-size: .9em; }
   .ticketList strong {font-weight: 700; }
   .ticketCard {width: 40px; height: 40px;}
-  .ticketList .infoItem .hlTotal {font-size:1em;}
+  .ticketList .infoItem .hlTotal {font-size:1em; font-weight: 800;}
 
 
   .infoItem {
@@ -151,16 +139,16 @@
     justify-content: space-between;
   }
 
-.itemAddCode {border: 1px dashed var(--color-white-opacity); border-width: 1px 0 1px 0;}
+.itemAddCode {border: 1px dashed var(--color-white-opacity); border-width: 1px 0 1px 0; margin: .5em 0; }
 
 .addCode {
     display: flex; 
     align-items: center; 
     padding:.8em; 
-    margin:0 0 0 -.4em;
+    /* margin:0 0 0 -.4em; */
     border: 0; 
     border-radius: 3px; 
-    background-color: rgba(255, 255, 255, .08);
+    background-color: rgba(255, 255, 255, .15);
     transition: .2s;;
     font-weight: 700;
     font-size: .8em;
