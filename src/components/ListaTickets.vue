@@ -10,12 +10,12 @@
           <div class="ticketList">
             <ul>
               <li v-for="ticket in tickets">
-                <titleBox>
+                <section>
                   <strong>{{ ticket.title }}</strong>
                   <span class="price">{{ vueNumberFormat(ticket.price, {prefix: "R$"}) }}</span>
-                </titleBox>
-                <button class="qtyButton" v-on:click.prevent="addQty"> 
-                  Qtd <qtd>{{ ticket.qtd }}</qtd>
+                </section>
+                <button class="qtyButton" @click.prevent="addQty"> 
+                  Qtd <span>{{ ticket.qtd }}</span>
                   <img src="../assets/arrow-down.svg" />
                 </button>
                 <small>{{ ticket.description }}</small>
@@ -50,7 +50,7 @@
                         qtd: 1,
                         price: 295.00,
                         description: 'Meia-entrada para estudantes e idosos | Último Lote Promocional - Direito ao BInRio NFT | De R$340 por R$295 | A entrada de menores seguirá a regulamentação do Estatuto da Criança e Adolescente (ECA)'
-                    }
+                    },
                 ]
             }
         },
@@ -73,34 +73,31 @@
     color:white;
     display: flex;
     justify-content: right;
-    align-items: center;
+    /* align-items: center; */
     position: relative;
     top:0;
     left: 0;
     width: 50vw;
     min-height: 100vh;
-    background-color: #180f53;
+    background-color: #0a0051;
     border-right: 10px solid rgba(0, 0, 0, .4);
-    /* background: rgb(38,14,110); */
-    background: rgb(39,15,113);
+    /* background: rgb(39,15,113);
     background: -moz-linear-gradient(45deg, rgba(39,15,113,1) 30%, rgba(28,8,89,1) 90%);
     background: -webkit-linear-gradient(45deg, rgba(39,15,113,1) 30%, rgba(28,8,89,1) 90%);
     background: linear-gradient(45deg, rgba(39,15,113,1) 30%, rgba(28,8,89,1) 90%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#270f71",endColorstr="#1c0859",GradientType=1);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#270f71",endColorstr="#1c0859",GradientType=1); */
   }
 
   #ticketBox {max-width: 450px; }
   #ticketBox header {
     border-bottom: 1px dashed var(--color-white-opacity);
-    padding: 0 1em 1em 1em; 
+    padding: 0 .5em 1em 1em; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
 }
 
   h1 {
-    /* margin-bottom: 1.5em;  */
     display: flex; 
     align-items: center; 
     font-weight: 700;
@@ -109,7 +106,6 @@
     width: 55px;
     height: 55px;
     border-radius: 100%;
-    /* border: 1px solid rgba(255, 255, 255, .15); */
     padding: .2em;
     margin: 0 .5em 0 -.4em;
     box-shadow: var(--color-white-opacity) 0 0 50px;
@@ -119,15 +115,15 @@
   h2 span {opacity: .5; font-size: .8em;}
   h2 strong {
     display: block;
-    font-size: 1.4em;
-    font-weight: 800;
+    font-size: 1.7em;
+    font-weight: 700;
   }
   .tickets {display: flex; padding:1em 0 1em 1em; }
   .tickets img {margin: .2em .5em 0 0; border-radius: 5px;}
 
   .ticketList ul li {
     list-style: none;
-    padding: 1em;
+    padding: .6em;
     border-radius:.3em;
     margin-bottom: .5em;
     background: rgb(0,0,0);
@@ -141,7 +137,7 @@
   .ticketList ul small {font-size:.8em; opacity: .5; line-height: 1.4em; display: block;}
   .ticketList ul .price {font-size:.9em; margin-left: .5em;}
 
-  .ticketList ul li titleBox {display: flex; justify-content: space-between;}
+  .ticketList ul li section {display: flex; justify-content: space-between;}
 
   .ticketList .infoItem {padding: .6em 1em;}
   .ticketList .infoItem * {font-size: .9em; }
@@ -201,7 +197,7 @@
     color:white; 
     cursor: pointer;
   }
-  .qtyButton qtd {margin-left: 4px; font-weight: 700; font-size: 1em; }
+  .qtyButton span {margin-left: 4px; font-weight: 700; font-size: 1em; }
   .qtyButton img {width: 10px; margin-left: 4px;}
   .qtyButton:hover {background-color: rgba(0, 0, 0, .3);}
   .qtyButton:active {background-color: rgba(0, 0, 0, .8);}
@@ -215,9 +211,8 @@
         align-items: center;
         position: relative;
         width: 100%;
-        background-color: #180f53;
         border:0;
-        background: rgb(38,14,110);
+        min-height: auto;
     }
     #ticketBox {max-width: 100%; }
   }

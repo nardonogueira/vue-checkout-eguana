@@ -1,36 +1,114 @@
 <template>
     <section id="formContent">
         <div id="formBox">
-            <p>
-                <label for="inpMail">Email</label>
-                <input type="text" class="frmControl" id="inpMail" placeholder="Informe seu email" />
-            </p>
-            <p>
-                <label for="inpName">Name</label>
-                <input type="text" class="frmControl" id="inpName" placeholder="Informe seu nome" />
-            </p>
-            <p>
-                <label for="inpCpfCnpj">CPF/CNPJ</label>
-                <input type="text" class="frmControl" id="inpCpfCnpj" placeholder="" />
-            </p>
+            <form action="#" @submit="onSubmit">
 
-            <p>
-                <input type="submit" class="submitButton" value="Pay" />
-            </p>
+                <p>
+                    <label for="inpMail">Email</label>
+                    <input type="text" class="frmControl" id="inpMail" />
+                </p>
+
+                <div class="boxPayMethod">
+                    <p>
+                        Payment method
+                    </p>
+                    <p class="payMethod">
+                        <button
+                            v-bind:class="[pay_card ? 'active' : null, '']"
+                            @click.prevent="changePayCard()"
+                        >
+                            <img src="../assets/credit-card-black.svg" /> Cartão
+                        </button>
+                        <button
+                            v-bind:class="[pay_boleto ? 'active' : null, '']"
+                            @click.prevent="changePayBoleto()"
+                        >
+                            <img src="../assets/barcode-lines-svgrepo-com.svg" /> Boleto
+                        </button>
+                    </p>
+                </div>
+
+                <Transition name="slide-fade">
+                    <div v-if="this.pay_card">
+                        <p>
+                            <label for="inpName">Name on card</label>
+                            <input type="text" class="frmControl" id="inpName" name="" />
+                        </p>
+                    </div>
+                </Transition>
+
+                <Transition name="slide-fade">
+                    <div v-if="this.pay_boleto">
+                        <p>
+                            <label for="inpName">Name</label>
+                            <input type="text" class="frmControl" id="inpName" />
+                        </p>
+                        <p>
+                            <label for="inpCpfCnpj">CPF/CNPJ</label>
+                            <input type="text" class="frmControl" placeholder="" name="cpfCnpj" />
+                        </p>
+                        <div>
+                            <label for="inpCpfCnpj">Billing address</label>
+                            <p class="frmControlGroup">
+                                <select name="" class="frmControl" id="">
+                                    <option value="">Teste</option>
+                                </select>
+                                <input type="text" class="frmControl" @keyup="fillAddress()" id="inpAddress" placeholder="Address" name="address" />
+                                <input v-if="this.addressFilled" type="text" class="frmControl" placeholder="Address line 2" name="addressLine2" />
+                                <input v-if="this.addressFilled" type="text" class="frmControl" placeholder="Neighborhood" name="" />
+                                <input v-if="this.addressFilled" type="text" class="frmControl" placeholder="City" name="" />
+                                <select v-if="this.addressFilled" name="" class="frmControl" id="">
+                                    <option value="">State</option>
+                                </select>
+                                <input v-if="this.addressFilled" type="text" class="frmControl" placeholder="Postal code" name="" />
+                            </p>
+                        </div>
+                    </div>
+                </Transition>
+
+                <p>
+                    <input type="submit" class="submitButton" value="Pay" />
+                </p>
+            </form>
         </div>
     </section>
 </template>
 
 
 <script>
-    export default {}
+    export default {
+        data(){
+            return {
+                pay_card: true,
+                pay_boleto: false,
+                addressFilled: false
+            }
+        },
+        methods: {
+            changePayCard(){
+                this.pay_card = true
+                this.pay_boleto = false
+            },
+            changePayBoleto(){
+                this.pay_card = false
+                this.pay_boleto = true
+            },
+            fillAddress() {
+                this.addressFilled = document.getElementById("inpAddress").value != "" ? true : false
+            },
+            onSubmit(e){
+                alert("DEV")
+                // e.preventDefault()
+            }
+        }
+    }
 </script>
 
 <style scoped>
 #formContent {
     padding:1.5em;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     position: relative;
     top:0;
@@ -44,48 +122,35 @@
   #formBox {width: 90%;}
   #formBox p {padding-bottom: .5em;}
 
-  label {font-size:.9em; opacity: .6;}
-  .frmControl {
-    padding:.6em .8em; 
-    margin:.3em 0;
-    width: 100%; 
-    border: 1px solid #CCC; 
-    border-radius: 4px; 
-    font-size:1em; 
-    font-weight: 700;
+
+
+  .boxPayMethod {padding: 1em 0;}
+  .payMethod {display: flex; justify-content: space-between;}
+  .payMethod span {
+    font-size:.8em;
+    opacity:.6;
+  }
+  .payMethod button {
+    display: flex;
+    align-items: center;
+    /* flex-direction: column; */
+    padding:.4em .6em .6em .6em;
+    font-size: .9em;
+    width: 49%;
+    border: 1px solid #CCC;
+    border-radius: 5px;
     box-shadow: var(--color-black-opacity) 0px 1px 4px;
+    background-color: #FFF;
     transition: .2s;
-  }
-  .frmControl:focus, .frmControl:active {
-    outline-style: inset;
-    outline-width: .3em;
-    outline-color: rgba(0, 0, 0, .05);
-    border-color: #999;
-  }
-
-  .frmControl::placeholder {
-    font-weight: normal;
-    }
-
-  .submitButton {
-    background-color: #00cc66; 
-    padding:1em; 
-    margin-top:.5em;
-    width: 100%; 
-    border: 1px solid #00cc66; 
-    border-radius: 4px; 
-    transition: .2s;
+    color: rgba(0, 0, 0, .4);
     cursor: pointer;
-    font-weight: 700;
-    font-size: 1em;
   }
-  .submitButton:hover {}
-  .submitButton:active {
-    outline-style: inset;
-    outline-width: .3em;
-    outline-color: rgba(0, 0, 0, .05);
-    background-color: #0dfd8d;
+  .payMethod button.active, .payMethod button.active:hover {
+    border-color: rgba(0, 0, 0, .8);
+    color: rgba(0, 0, 0, 1);
+    font-weight: 600;
   }
+  .payMethod img {width:25px; height:20px; margin-right: .1em;;}
 
 
 
@@ -95,9 +160,6 @@
         margin:0 auto;
         height: auto;
         align-items: center;
-    }
-
-    #formBox {
     }
   }
 
