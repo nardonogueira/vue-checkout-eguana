@@ -2,8 +2,9 @@
   <section id="ticketContent">
     <div id="ticketBox">
         <header>
+          <!-- https://blockchainrio.com.br/wp-content/uploads/2022/05/BlockchainRio_logo-3.png -->
           <h1><img src="../assets/blockchainrio.png" class="logoClient" />Blockchain Rio</h1>
-          <h2><span>Pay Blockchain Rio</span> <strong>R$885.00</strong></h2>
+          <h2><span>Pay Blockchain Rio</span> <strong>{{ vueNumberFormat(this.totalDue, {prefix: "R$"}) }}</strong></h2>
         </header>
         <div class="tickets">
           <img src="../assets/card.jpeg" class="ticketCard" />
@@ -57,13 +58,13 @@
 
 <style scoped>
   #ticketContent {
-    padding:1.5em;
+    padding:2em 1.5em 1.5em 1.5em;
   }
 
   #ticketContent {
     color:white;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: right;
     position: relative;
     top:0;
@@ -94,17 +95,18 @@
     font-size: 1.3em;
     font-weight: 900;
   }
+
   .logoClient {
     max-width: 55px;
     max-height: 55px;
     border-radius: 7px;
     padding: .2em;
     background-color: #FFF;
-    margin: 0 7px 0 -.5em;
+    margin: 0 10px 0 -.5em;
     box-shadow: var(--color-black-opacity) 0 0 50px;
   }
 
-  h2 {font-size: 1em;text-align: right; }
+  h2 {font-size: 1em; text-align: right;}
   h2 span {opacity: .4; font-size: .7em;}
   h2 strong {
     display: block;
