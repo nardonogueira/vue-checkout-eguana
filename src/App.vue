@@ -76,7 +76,7 @@ export default {
       margin:0 auto;
       height: auto;
       max-width: 100vw;
-      align-items: center;
+      /* align-items: center; */
     }
   }
 
