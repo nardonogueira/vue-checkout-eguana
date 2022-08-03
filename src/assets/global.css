@@ -13,7 +13,7 @@ a:hover, a:focus {
     background: none;
 }
 
-label {font-size:.8em; opacity: .8; display: block; font-weight: 600; margin:.3em 0;}
+label {font-size:.8em; opacity: .8; display: block; font-weight: 600; margin:.8em 0 .4em 0;}
 .frmControlGroup .frmControl:first-child {border-radius: 4px 4px 0 0 ;}
 .frmControlGroup .frmControl {border-radius: 0; margin-top:-1px;}
 .frmControlGroup .frmControl:last-child {border-radius: 0 0 4px 4px; position: relative;}

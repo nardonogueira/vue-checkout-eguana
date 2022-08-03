@@ -56,41 +56,6 @@
                             <input type="text" class="frmControl" name="" placeholder="Name on card" />
                         </p>
                     </div>
-
-                    <div>
-                        <label>Billing address</label>
-                        <p>
-                            <select name="" class="frmControl" id="">
-                                <option value="">Country</option>
-                            </select>
-                        </p>
-                        <p>
-                            <input type="text" class="frmControl" @keyup="fillAddress()" id="inpAddress" placeholder="Address" name="address" />
-                        </p>
-                        <div v-if="this.addressFilled">
-                            <p>
-                                <input type="text" class="frmControl" placeholder="Address line 2" name="addressLine2" />
-                            </p>
-                            <p class="dFlex spcInp">
-                                <input type="text" class="frmControl" placeholder="Neighborhood" name="" />
-                                <input type="text" class="frmControl" placeholder="City" name="" />
-                            </p>
-                            <p class="dFlex spcInp">
-                                <select name="" class="frmControl" id="">
-                                    <option value="">State</option>
-                                </select>
-                            </p>
-                            <p>
-                                <input type="text" class="frmControl" placeholder="Postal code" name="" />
-                            </p>
-                        </div>
-                        <p>
-                            <a v-if="!this.addressFilled" href="#" @click.prevent="showFields" class="showFields">Enter address manually</a>
-                        </p>
-                        <p>
-                            <input type="submit" class="submitButton" value="Pay" />
-                        </p>
-                    </div>
                 </div>
             </Transition>
 
@@ -104,11 +69,45 @@
                         <label for="inpCpfCnpj">CPF/CNPJ</label>
                         <input type="text" class="frmControl" placeholder="" name="cpfCnpj" />
                     </p>
-                    <p>
-                        <input type="submit" class="submitButton" value="Pay" />
-                    </p>
                 </div>
             </Transition>
+
+
+            <div>
+                <label>Billing address</label>
+                <p>
+                    <select name="" class="frmControl" id="">
+                        <option value="">Country</option>
+                    </select>
+                </p>
+                <p>
+                    <input type="text" class="frmControl" @keyup="fillAddress()" id="inpAddress" placeholder="Address" name="address" />
+                </p>
+                <div v-if="this.addressFilled">
+                    <p>
+                        <input type="text" class="frmControl" placeholder="Address line 2" name="addressLine2" />
+                    </p>
+                    <p class="dFlex spcInp">
+                        <input type="text" class="frmControl" placeholder="Neighborhood" name="" />
+                        <input type="text" class="frmControl" placeholder="City" name="" />
+                    </p>
+                    <p class="dFlex spcInp">
+                        <select name="" class="frmControl" id="">
+                            <option value="">State</option>
+                        </select>
+                    </p>
+                    <p>
+                        <input type="text" class="frmControl" placeholder="Postal code" name="" />
+                    </p>
+                </div>
+                <p>
+                    <a v-if="!this.addressFilled" href="#" @click.prevent="showFields" class="showFields">Enter address manually</a>
+                </p>
+            </div>
+
+            <p>
+                <input type="submit" class="submitButton" value="Pay" />
+            </p>
 
         </form>
     </div>
@@ -132,7 +131,7 @@
             changePayBoleto(){
                 this.pay_card = false
                 this.pay_boleto = true
-                this.addressFilled = false
+                // this.addressFilled = false
             },
             fillAddress() {
                 this.addressFilled = document.getElementById("inpAddress").value != "" ? true : false
@@ -156,17 +155,17 @@
     #formBox p {padding-bottom: .5em;}
 
     h3 {
-        margin-bottom: .4em; 
-        font-weight: 600; 
+        margin-bottom: .4em;
+        font-weight: 600;
         font-size: .9em;
     }
 
     .gPay {
-        display: flex; 
+        display: flex;
         justify-content: center;
-        background-color: #222; 
-        padding: .8em; 
-        margin-bottom: 1em; 
+        background-color: #222;
+        padding: .8em;
+        margin-bottom: 1em;
         border-radius:4px;
         transition: .1s;
     }
@@ -176,7 +175,7 @@
         padding: .5em 0;
     }
     .payMethod {
-        display: flex; 
+        display: flex;
         justify-content: space-between;
     }
     .payMethod span {
@@ -201,16 +200,16 @@
         font-weight: 600;
     }
     .payMethod img {
-        width:25px; 
-        height:20px; 
-        margin-right: .1em; 
+        width:25px;
+        height:20px;
+        margin-right: .1em;
         opacity:.4;
     }
     .payMethod button.active img {
         opacity:1;
     }
     .showFields {
-        font-size: .8em; 
+        font-size: .8em;
         margin-left: 10px;
     }
 
