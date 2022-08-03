@@ -21,7 +21,6 @@ export default {
 
 
 <style scoped>
-
   #ticketContent {
     padding:2em 1.5em 1.5em 1.5em;
   }
@@ -42,7 +41,7 @@ export default {
     background: -webkit-linear-gradient(45deg, rgba(11,75,139,0) 50%, rgba(0,0,0,0.3000849697885196) 100%);
     background: linear-gradient(45deg, rgba(11,75,139,0) 50%, rgba(0,0,0,0.3000849697885196) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0b4b8b",endColorstr="#000000",GradientType=1);
-    background-color: #300a62;
+    /* background-color: #300a62; */
   }
 
   #formContent {
@@ -53,8 +52,9 @@ export default {
     /* position: relative; */
     top:0;
     right: 0;
-    max-width: 500px;
-    height: 100vh;
+    max-width: 50vw;
+    height: 100%;
+    min-height: 100vh;
     background-color: #FFF;
   }
 
@@ -72,10 +72,11 @@ export default {
       max-width: 100%;
     }
     #formContent {
-        padding: 1.5em .5em;
-        margin:0 auto;
-        height: auto;
-        align-items: center;
+      padding: 1.5em .5em;
+      margin:0 auto;
+      height: auto;
+      max-width: 100vw;
+      align-items: center;
     }
   }
 

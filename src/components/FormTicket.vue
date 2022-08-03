@@ -152,7 +152,7 @@
 
 <style scoped>
 
-    #formBox {width: 90%;}
+    #formBox {width: 90%; max-width: 400px;}
     #formBox p {padding-bottom: .5em;}
 
     h3 {
