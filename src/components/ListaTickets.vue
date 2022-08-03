@@ -48,6 +48,16 @@
                         qtd: 1,
                         price: 295,
                         description: "Meia-entrada para estudantes e idosos | Último Lote Promocional - Direito ao BInRio NFT | De R$340 por R$295 | A entrada de menores seguirá a regulamentação do Estatuto da Criança e Adolescente (ECA)"
+                    }, {
+                        title: "BlockchaIn Rio Festival Passaporte - Meia-Entrada",
+                        qtd: 1,
+                        price: 295,
+                        description: "Meia-entrada para estudantes e idosos | Último Lote Promocional - Direito ao BInRio NFT | De R$340 por R$295 | A entrada de menores seguirá a regulamentação do Estatuto da Criança e Adolescente (ECA)"
+                    }, {
+                        title: "BlockchaIn Rio Festival Passaporte - Meia-Entrada",
+                        qtd: 1,
+                        price: 295,
+                        description: "Meia-entrada para estudantes e idosos | Último Lote Promocional - Direito ao BInRio NFT | De R$340 por R$295 | A entrada de menores seguirá a regulamentação do Estatuto da Criança e Adolescente (ECA)"
                     }
                 ]
             };
@@ -91,7 +101,7 @@
     max-height: 55px;
     border-radius: 7px;
     padding: .2em;
-    background-color: #FFF;
+    background-color: var(---backgroud-color-logo-client);
     margin: 0 10px 0 -.5em;
     box-shadow: var(--color-black-opacity) 0 0 50px;
   }
