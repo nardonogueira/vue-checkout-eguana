@@ -66,7 +66,7 @@ export default {
         position: relative;
         width: 100%;
         border:0;
-        min-height: auto;
+        height: auto;
     }
     #ticketBox {
       max-width: 100%;

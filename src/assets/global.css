@@ -57,9 +57,9 @@ select.frmControl {padding-left:.5em; }
     width: 100%;
     border: 1px solid #00cc66;
     border-radius: 7px;
-    transition: .2s;
+    transition: .1s;
     cursor: pointer;
-    font-weight: 700;
+    font-weight: 900;
     font-size: 1em;
 }
 /* .submitButton:hover {} */
@@ -77,9 +77,8 @@ select.frmControl {padding-left:.5em; }
   justify-content: space-between;
   white-space: nowrap;
   font-size: .9em;
-
   opacity: .6;
-  margin-bottom: 1em;
+  margin-bottom: .8em;
 }
 .divLine hr {width: 100%; border: 0; border-top:1px solid var(--color-black-opacity)}
 .divLine hr:first-child {margin-right: 10px; }
