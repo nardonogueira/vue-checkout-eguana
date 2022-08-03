@@ -9,8 +9,8 @@
           <img src="../assets/card.jpeg" class="ticketCard" />
           <div class="ticketList">
             <ul>
-              <li v-for="ticket in tickets">
-                <Ticket v-bind:ticket=ticket />
+              <li v-for="(ticket, index) in tickets">
+                <Ticket v-bind:ticket="ticket" v-bind:indexTicket="index" />
               </li>
             </ul>
             <p class="infoItem">Subtotal <span>{{ vueNumberFormat(this.subtotal, {prefix: "R$"}) }}</span></p>

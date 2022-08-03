@@ -2,16 +2,17 @@
     <div id="formBox">
         <form action="#" @submit="onSubmit">
 
+            <p>
+                <a href="#" class="gPay" @click="onDev()">
+                    <img src="../assets/g-pay.svg" />
+                </a>
+            </p>
+
             <div class="divLine">
                 <hr>
                 Or pay another way
                 <hr>
             </div>
-
-            <p>
-                <label for="inpMail">Email</label>
-                <input type="text" class="frmControl" id="inpMail" />
-            </p>
 
             <div class="boxPayMethod">
                 <h3>
@@ -35,30 +36,58 @@
                 </p>
             </div>
 
+            <p>
+                <label for="inpMail">Email</label>
+                <input type="text" class="frmControl" id="inpMail" />
+            </p>
+
             <Transition name="slide-fade" appear >
                 <div v-if="this.pay_card">
-                    <p>
-                        <label for="inpName">Name on card</label>
-                        <input type="text" class="frmControl" id="inpName" name="" />
-                    </p>
                     <div>
-                        <label for="inpCpfCnpj">Billing address</label>
-                        <p class="frmControlGroup">
-                            <select name="" class="frmControl" id="">
-                                <option value="">Teste</option>
-                            </select>
-                            <input type="text" class="frmControl" @keyup="fillAddress()" id="inpAddress" placeholder="Address" name="address" />
-                            <input v-if="this.addressFilled" type="text" class="frmControl" placeholder="Address line 2" name="addressLine2" />
-                            <input v-if="this.addressFilled" type="text" class="frmControl" placeholder="Neighborhood" name="" />
-                            <input v-if="this.addressFilled" type="text" class="frmControl" placeholder="City" name="" />
-                            <select v-if="this.addressFilled" name="" class="frmControl" id="">
-                                <option value="">State</option>
-                            </select>
-                            <input v-if="this.addressFilled" type="text" class="frmControl" placeholder="Postal code" name="" />
+                        <label>Card information</label>
+                        <p>
+                            <input type="text" class="frmControl" name="" placeholder="1234 1234 1234 1234" />
                         </p>
+                        <p class="dFlex spcInp">
+                            <input type="text" class="frmControl" name="" placeholder="MM / YY" />
+                            <input type="text" class="frmControl" name="" placeholder="CVC" />
+                        </p>
+                        <p>
+                            <input type="text" class="frmControl" name="" placeholder="Name on card" />
+                        </p>
+                    </div>
+
+                    <div>
+                        <label>Billing address</label>
+                        <p>
+                            <select name="" class="frmControl" id="">
+                                <option value="">Country</option>
+                            </select>
+                        </p>
+                        <p>
+                            <input type="text" class="frmControl" @keyup="fillAddress()" id="inpAddress" placeholder="Address" name="address" />
+                        </p>
+                        <div v-if="this.addressFilled">
+                            <p>
+                                <input type="text" class="frmControl" placeholder="Address line 2" name="addressLine2" />
+                            </p>
+                            <p class="dFlex spcInp">
+                                <input type="text" class="frmControl" placeholder="Neighborhood" name="" />
+                                <input type="text" class="frmControl" placeholder="City" name="" />
+                            </p>
+                            <p class="dFlex spcInp">
+                                <select name="" class="frmControl" id="">
+                                    <option value="">State</option>
+                                </select>
+                            </p>
+                            <p>
+                                <input type="text" class="frmControl" placeholder="Postal code" name="" />
+                            </p>
+                        </div>
                         <p>
                             <a v-if="!this.addressFilled" href="#" @click.prevent="showFields" class="showFields">Enter address manually</a>
                         </p>
+                    
                     </div>
                 </div>
             </Transition>
@@ -101,6 +130,7 @@
             changePayBoleto(){
                 this.pay_card = false
                 this.pay_boleto = true
+                this.addressFilled = false
             },
             fillAddress() {
                 this.addressFilled = document.getElementById("inpAddress").value != "" ? true : false
@@ -110,7 +140,9 @@
             },
             onSubmit(e){
                 e.preventDefault()
-                // alert("DEV")
+            },
+            onDev() {
+                e.preventDefault()
             }
         }
     }
@@ -126,8 +158,19 @@
         font-weight: 600; 
         font-size: .9em;
     }
+
+    .gPay {
+        display: flex; 
+        justify-content: center;
+        background-color: #222; 
+        padding: .8em; 
+        margin-bottom: 1em; 
+        border-radius:4px;
+        transition: .15s;
+    }
+
     .boxPayMethod {
-        padding: 1em 0;
+        padding: .5em 0;
     }
     .payMethod {
         display: flex; 
@@ -142,8 +185,8 @@
         align-items: center;
         background-color: #FFF;
         transition: .2s;
-        padding:1em;
-        color: rgba(0, 0, 0, .4);
+        /* padding:1em; */
+        color: rgba(0, 0, 0, .6);
         cursor: pointer;
     }
     .payMethod button:first-child {

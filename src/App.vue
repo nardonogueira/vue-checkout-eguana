@@ -35,7 +35,7 @@ export default {
     top:0;
     left: 0;
     width: 50vw;
-    min-height: 100vh;
+    height: 100vh;
     border-right: 10px solid rgba(0, 0, 0, .4);
     background: rgb(11,75,139);
     background: -moz-linear-gradient(45deg, rgba(11,75,139,0) 50%, rgba(0,0,0,0.3000849697885196) 100%);
@@ -50,7 +50,7 @@ export default {
     display: flex;
     /* align-items: center; */
     justify-content: center;
-    position: relative;
+    /* position: relative; */
     top:0;
     right: 0;
     max-width: 500px;

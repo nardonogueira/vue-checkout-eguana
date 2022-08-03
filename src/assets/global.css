@@ -15,22 +15,29 @@ a:hover, a:focus {
 }
 
 label {font-size:.8em; opacity: .8; display: block; font-weight: 600; margin:.3em 0;}
-.frmControlGroup .frmControl:first-child {border-radius: 5px 5px 0 0 ;}
+.frmControlGroup .frmControl:first-child {border-radius: 4px 4px 0 0 ;}
 .frmControlGroup .frmControl {border-radius: 0; margin-top:-1px;}
-.frmControlGroup .frmControl:last-child {border-radius: 0 0 5px 5px; position: relative;}
+.frmControlGroup .frmControl:last-child {border-radius: 0 0 4px 4px; position: relative;}
+
+.frmControlGroup section {
+  display: flex;
+}
+.dFlex {display: flex;}
+.spcInp input:last-child {margin-left:.5em;}
+
 .frmControl {
     padding:8px 12px;
     /* margin:.3em 0; */
     width: 100%;
     border: 1px solid #DDD;
-    border-radius: 7px;
+    border-radius: 4px;
     font-size:.9em;
     font-weight: 700;
-    box-shadow: var(--color-black-opacity) 0px 1px 4px;
+    box-shadow: var(--color-black-opacity) 0px 0px 3px;
     transition: .2s;
 }
 select.frmControl {padding-left:.5em; }
-.frmControl:hover {box-shadow: var(--color-black-opacity-hover) 0px 1px 4px;}
+.frmControl:hover {box-shadow: var(--color-black-opacity-hover) 0px 0px 4px;}
 .frmControl:focus, .frmControl:active {
     outline-style: inset;
     outline-width: .3em;
