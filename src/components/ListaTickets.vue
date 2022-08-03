@@ -1,5 +1,4 @@
 <template>
-  <section id="ticketContent">
     <div id="ticketBox">
         <header>
           <!-- https://blockchainrio.com.br/wp-content/uploads/2022/05/BlockchainRio_logo-3.png -->
@@ -22,7 +21,6 @@
           </div>
         </div>
     </div>
-  </section>
 </template>
 
 
@@ -48,8 +46,8 @@
             };
         },
         methods: {},
-        components: { 
-            Ticket 
+        components: {
+            Ticket
         },
     }
 </script>
@@ -57,41 +55,19 @@
 
 
 <style scoped>
-  #ticketContent {
-    padding:2em 1.5em 1.5em 1.5em;
-  }
-
-  #ticketContent {
-    color:white;
-    display: flex;
-    /* align-items: center; */
-    justify-content: right;
-    position: relative;
-    top:0;
-    left: 0;
-    width: 50vw;
-    min-height: 100vh;
-    border-right: 10px solid rgba(0, 0, 0, .4);
-    background: rgb(11,75,139);
-    background: -moz-linear-gradient(45deg, rgba(11,75,139,0) 50%, rgba(0,0,0,0.3000849697885196) 100%);
-    background: -webkit-linear-gradient(45deg, rgba(11,75,139,0) 50%, rgba(0,0,0,0.3000849697885196) 100%);
-    background: linear-gradient(45deg, rgba(11,75,139,0) 50%, rgba(0,0,0,0.3000849697885196) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0b4b8b",endColorstr="#000000",GradientType=1);
-    background-color: #300a62;
-  }
 
   #ticketBox {max-width: 450px; }
   #ticketBox header {
     border-bottom: 1px dashed var(--color-white-opacity);
-    padding: 0 1em 1.5em 1em; 
+    padding: 0 1em 1.5em 1em;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
   h1 {
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
     font-size: 1.3em;
     font-weight: 900;
   }
@@ -144,26 +120,26 @@
 .itemAddCode {border: 1px dashed var(--color-white-opacity); border-width: 1px 0 1px 0; margin: .5em 0; }
 
 .addCode {
-    display: flex; 
-    align-items: center; 
-    padding:.8em; 
+    display: flex;
+    align-items: center;
+    padding:.8em;
     /* margin:0 0 0 -.4em; */
-    border: 0; 
-    border-radius: 3px; 
+    border: 0;
+    border-radius: 3px;
     background-color: rgba(255, 255, 255, .15);
     transition: .2s;;
     font-weight: 700;
     font-size: .8em;
-    color:white; 
+    color:white;
     cursor: pointer;
 }
 .addCode:hover {opacity: .8;}
 .addCode:focus,.addCode:active {
-    width:100%; 
-    cursor: text; 
-    background-color: #FFF; 
+    width:100%;
+    cursor: text;
+    background-color: #FFF;
     outline-color: #FFF;
-    color:var(--vt-c-black-soft); 
+    color:var(--vt-c-black-soft);
     opacity: 1;
 }
 .addCode::placeholder {
@@ -174,17 +150,17 @@
 }
 
   .qtyButton {
-    display: flex; 
-    align-items: center; 
-    padding:.3em 0 .3em .4em; 
+    display: flex;
+    align-items: center;
+    padding:.3em 0 .3em .4em;
     margin:0 0 .4em -.4em;
-    border: 0; 
-    border-radius: 3px; 
+    border: 0;
+    border-radius: 3px;
     background-color: transparent;
     transition: .2s;
     font-weight: 700;
     font-size: .8em;
-    color:white; 
+    color:white;
     cursor: pointer;
   }
   .qtyButton span {margin-left: 4px; font-weight: 700; font-size: 1em; }
@@ -192,19 +168,5 @@
   .qtyButton:hover {background-color: rgba(0, 0, 0, .3);}
   .qtyButton:active {background-color: rgba(0, 0, 0, .8);}
 
-
-
-  @media (max-width: 1024px) {
-    #ticketContent {
-        display: flex;
-        justify-content: right;
-        align-items: center;
-        position: relative;
-        width: 100%;
-        border:0;
-        min-height: auto;
-    }
-    #ticketBox {max-width: 100%; }
-  }
 
 </style>
