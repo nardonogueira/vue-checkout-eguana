@@ -46,11 +46,11 @@
                     <div>
                         <label>Card information</label>
                         <p>
-                            <input type="text" class="frmControl" name="" placeholder="1234 1234 1234 1234" />
+                            <input type="text" class="frmControl" name="" placeholder="1234 1234 1234 1234" v-mask="'#### #### #### ####'" />
                         </p>
                         <p class="dFlex spcInp">
-                            <input type="text" class="frmControl" name="" placeholder="MM / YY" />
-                            <input type="text" class="frmControl" name="" placeholder="CVC" />
+                            <input type="text" class="frmControl" name="" placeholder="MM / YY" v-mask="'## / ##'" />
+                            <input type="text" class="frmControl" name="" placeholder="CVC" v-mask="'###'" />
                         </p>
                         <p>
                             <input type="text" class="frmControl" name="" placeholder="Name on card" />
@@ -87,7 +87,9 @@
                         <p>
                             <a v-if="!this.addressFilled" href="#" @click.prevent="showFields" class="showFields">Enter address manually</a>
                         </p>
-                    
+                        <p>
+                            <input type="submit" class="submitButton" value="Pay" />
+                        </p>
                     </div>
                 </div>
             </Transition>
@@ -102,12 +104,12 @@
                         <label for="inpCpfCnpj">CPF/CNPJ</label>
                         <input type="text" class="frmControl" placeholder="" name="cpfCnpj" />
                     </p>
+                    <p>
+                        <input type="submit" class="submitButton" value="Pay" />
+                    </p>
                 </div>
             </Transition>
 
-            <p>
-                <input type="submit" class="submitButton" value="Pay" />
-            </p>
         </form>
     </div>
 </template>
