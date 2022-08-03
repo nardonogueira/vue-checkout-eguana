@@ -168,8 +168,9 @@
         padding: .8em; 
         margin-bottom: 1em; 
         border-radius:4px;
-        transition: .15s;
+        transition: .1s;
     }
+    .gPay:hover, .gPay:focus {opacity: .9;}
 
     .boxPayMethod {
         padding: .5em 0;

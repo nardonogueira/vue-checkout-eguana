@@ -33,7 +33,7 @@ export default {
     background: -webkit-linear-gradient(45deg, rgba(11,75,139,0) 50%, rgba(0,0,0,0.3000849697885196) 100%);
     background: linear-gradient(45deg, rgba(11,75,139,0) 50%, rgba(0,0,0,0.3000849697885196) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0b4b8b",endColorstr="#000000",GradientType=1);
-    background-color: var(--background-color-client);
+    background-color: var(---background-color-client);
 }
 
   #ticketContent {
@@ -77,7 +77,7 @@ export default {
         width: 100%;
         border:0;
         height: auto;
-        background-color: var(--background-color-client);
+        background-color: var(---background-color-client);
     }
     #ticketBox {
       max-width: 100%;
