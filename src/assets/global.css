@@ -62,7 +62,7 @@ select.frmControl {padding-left:.5em; }
     font-weight: 900;
     font-size: 1em;
 }
-/* .submitButton:hover {} */
+
 .submitButton:hover, .submitButton:focus {background-color: #00c161;}
 .submitButton:active {
     outline-style: inset;

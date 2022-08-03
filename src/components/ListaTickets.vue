@@ -15,7 +15,13 @@
             </ul>
             <p class="infoItem">Subtotal <span>{{ vueNumberFormat(this.subtotal, {prefix: "R$"}) }}</span></p>
             <p class="infoItem itemAddCode">
-                <input class="addCode" placeholder="Add promotion code">
+                <input 
+                  class="addCode" 
+                  id="promoCode"
+                  v-bind:class="promotionCodeFilled ? 'active' : ''"
+                  @keyup="fillCode"
+                  placeholder="Add promotion code"
+                >
             </p>
             <p class="infoItem">Total due <strong class="hlTotal">{{ vueNumberFormat(this.totalDue, {prefix: "R$"}) }}</strong></p>
           </div>
@@ -29,6 +35,7 @@
     export default {
         data() {
             return {
+                promotionCodeFilled: false,
                 subtotal: 885,
                 totalDue: 885,
                 tickets: [{
@@ -45,7 +52,14 @@
                 ]
             };
         },
-        methods: {},
+        methods: {
+          fillCode(){
+              this.promotionCodeFilled = document.getElementById("promoCode").value !== "" ? true : false
+            },
+        },
+        created() {
+          this.promotionCodeFilled = false
+        },
         components: {
             Ticket
         },
@@ -134,7 +148,7 @@
     cursor: pointer;
 }
 .addCode:hover {opacity: .8;}
-.addCode:focus,.addCode:active {
+.addCode:focus,.addCode:active,.addCode.active {
     width:100%;
     cursor: text;
     background-color: #FFF;
