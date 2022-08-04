@@ -1,12 +1,12 @@
 <template>
     <div id="ticketBox">
         <header>
-          <!-- https://blockchainrio.com.br/wp-content/uploads/2022/05/BlockchainRio_logo-3.png -->
-          <h1><img src="../assets/blockchainrio.png" class="logoClient" />Blockchain Rio</h1>
+          <!-- ../assets/img/blockchainrio.png -->
+          <h1><img src="../assets/img/logo-blockchainrio.png" class="logoClient" />Blockchain Rio</h1>
           <h2><span>Pay Blockchain Rio</span> <strong>{{ vueNumberFormat(this.totalDue, {prefix: "R$"}) }}</strong></h2>
         </header>
         <div class="tickets">
-          <img src="../assets/card.jpeg" class="ticketCard" />
+          <img src="../assets/img/card.jpeg" class="ticketCard" />
           <div class="ticketList">
             <ul>
               <li v-for="(ticket, index) in tickets">
@@ -17,9 +17,8 @@
             <p class="infoItem itemAddCode">
                 <input 
                   class="addCode" 
-                  id="promoCode"
-                  v-bind:class="promotionCodeFilled ? 'active' : ''"
-                  @keyup="fillCode"
+                  v-model="promoCode"
+                  v-bind:class="promoCode !== '' ? 'active' : ''"
                   placeholder="Add promotion code"
                 >
             </p>
@@ -35,7 +34,7 @@
     export default {
         data() {
             return {
-                promotionCodeFilled: false,
+                promoCode: '',
                 subtotal: 885,
                 totalDue: 885,
                 tickets: [{
@@ -52,14 +51,8 @@
                 ]
             };
         },
-        methods: {
-          fillCode(){
-              this.promotionCodeFilled = document.getElementById("promoCode").value !== "" ? true : false
-            },
-        },
-        created() {
-          this.promotionCodeFilled = false
-        },
+        // methods: {
+        // },
         components: {
             Ticket
         },
@@ -125,7 +118,6 @@
   .ticketCard {width: 40px; height: 40px;}
   .ticketList .infoItem .hlTotal {font-size:1em; font-weight: 800;}
 
-
   .infoItem {
     display: flex;
     justify-content: space-between;
@@ -137,7 +129,6 @@
     display: flex;
     align-items: center;
     padding:.8em;
-    /* margin:0 0 0 -.4em; */
     border: 0;
     border-radius: 3px;
     background-color: rgba(255, 255, 255, .15);
@@ -181,6 +172,5 @@
   .qtyButton img {width: 10px; margin-left: 4px;}
   .qtyButton:hover {background-color: rgba(0, 0, 0, .3);}
   .qtyButton:active {background-color: rgba(0, 0, 0, .8);}
-
 
 </style>

@@ -4,9 +4,9 @@ import VueNumberFormat from 'vue-number-format'
 
 import VueTheMask from 'vue-the-mask'
 
-import "./assets/main.css";
-import "./assets/global.css";
-import "./assets/client-config.css";
+import "./assets/css/main.css";
+import "./assets/css/global.css";
+import "./assets/css/client-config.css";
 
 const app = createApp(App)
 app.use(VueTheMask)

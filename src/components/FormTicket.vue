@@ -3,8 +3,8 @@
         <form action="#" @submit="onSubmit">
 
             <p>
-                <a href="#" class="gPay" @click="onDev()">
-                    <img src="../assets/g-pay.svg" />
+                <a href="" class="gPay" @click.prevent="">
+                    <img src="../assets/img/g-pay.svg" />
                 </a>
             </p>
 
@@ -24,14 +24,14 @@
                         v-bind:class="[pay_card ? 'active' : null, '']"
                         @click.prevent="changePayCard()"
                     >
-                        <img src="../assets/credit-card-black-2.svg" /> Cartão
+                        <img src="../assets/img/credit-card-black-2.svg" /> Cartão
                     </button>
                     <button
                         class="frmControl"
                         v-bind:class="[pay_boleto ? 'active' : null, '']"
                         @click.prevent="changePayBoleto()"
                     >
-                        <img src="../assets/barcode-lines-svgrepo-com.svg" /> Boleto
+                        <img src="../assets/img/barcode-lines-svgrepo-com.svg" /> Boleto
                     </button>
                 </p>
             </div>
@@ -72,38 +72,42 @@
                 </div>
             </Transition>
 
-
-            <div>
-                <label>Billing address</label>
+            <label>Billing address</label>
+            <p>
+                <select name="" class="frmControl" id="">
+                    <option value="">Country</option>
+                </select>
+            </p>
+            <p>
+                <input
+                    type="text"
+                    class="frmControl"
+                    v-model="address"
+                    @keyup="fillAddress"
+                    placeholder="Address"
+                    name="address"
+                />
+            </p>
+            <div v-if="addressFilled">
                 <p>
+                    <input type="text" class="frmControl" placeholder="Address line 2" name="addressLine2" />
+                </p>
+                <p class="dFlex spcInp">
+                    <input type="text" class="frmControl" placeholder="Neighborhood" name="" />
+                    <input type="text" class="frmControl" placeholder="City" name="" />
+                </p>
+                <p class="dFlex spcInp">
                     <select name="" class="frmControl" id="">
-                        <option value="">Country</option>
+                        <option value="">State</option>
                     </select>
                 </p>
                 <p>
-                    <input type="text" class="frmControl" @keyup="fillAddress()" id="inpAddress" placeholder="Address" name="address" />
-                </p>
-                <div v-if="this.addressFilled">
-                    <p>
-                        <input type="text" class="frmControl" placeholder="Address line 2" name="addressLine2" />
-                    </p>
-                    <p class="dFlex spcInp">
-                        <input type="text" class="frmControl" placeholder="Neighborhood" name="" />
-                        <input type="text" class="frmControl" placeholder="City" name="" />
-                    </p>
-                    <p class="dFlex spcInp">
-                        <select name="" class="frmControl" id="">
-                            <option value="">State</option>
-                        </select>
-                    </p>
-                    <p>
-                        <input type="text" class="frmControl" placeholder="Postal code" name="" />
-                    </p>
-                </div>
-                <p>
-                    <a v-if="!this.addressFilled" href="#" @click.prevent="showFields" class="showFields">Enter address manually</a>
+                    <input type="text" class="frmControl" placeholder="Postal code" name="" />
                 </p>
             </div>
+            <p v-if="!addressFilled">
+                <a href="#" @click.prevent="showFields" class="showFields">Enter address manually</a>
+            </p>
 
             <p>
                 <input type="submit" class="submitButton" value="Pay" />
@@ -120,7 +124,8 @@
             return {
                 pay_card: true,
                 pay_boleto: false,
-                addressFilled: false
+                addressFilled: false,
+                address: ''
             }
         },
         methods: {
@@ -131,26 +136,22 @@
             changePayBoleto(){
                 this.pay_card = false
                 this.pay_boleto = true
-                // this.addressFilled = false
             },
             fillAddress() {
-                this.addressFilled = document.getElementById("inpAddress").value != "" ? true : false
+                this.addressFilled = this.address !== '' ? true : false
             },
-            showFields(e) {
+            showFields() {
                 this.addressFilled = true
             },
             onSubmit(e){
                 e.preventDefault()
             },
-            onDev() {
-                e.preventDefault()
-            }
-        }
+        },
     }
 </script>
 
-<style scoped>
 
+<style scoped>
     #formBox {width: 90%; max-width: 400px;}
     #formBox p {padding-bottom: .5em;}
 
@@ -187,7 +188,6 @@
         align-items: center;
         background-color: #FFF;
         transition: .2s;
-        /* padding:1em; */
         color: rgba(0, 0, 0, .6);
         cursor: pointer;
     }
@@ -212,5 +212,4 @@
         font-size: .8em;
         margin-left: 10px;
     }
-
 </style>
