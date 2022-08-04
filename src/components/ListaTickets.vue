@@ -20,7 +20,10 @@
                   v-model="promoCode"
                   v-bind:class="promoCode !== '' ? 'active' : ''"
                   placeholder="Add promotion code"
-                >
+                />
+                <Transition name="bounce">
+                  <a href="" @click.prevent="" v-if="promoCode !== ''"><img src="../assets/img/check.svg" /></a>
+                </Transition>
             </p>
             <p class="infoItem">Total due <strong class="hlTotal">{{ vueNumberFormat(this.totalDue, {prefix: "R$"}) }}</strong></p>
           </div>
@@ -113,7 +116,7 @@
   }
   /* .ticketList ul li:last-child {margin-bottom: 1.5em;} */
   .ticketList .infoItem {padding: .5em;}
-  .ticketList .infoItem * {font-size: .9em; }
+  .ticketList .infoItem strong {font-size: .9em; }
   .ticketList strong {font-weight: 700; }
   .ticketCard {width: 40px; height: 40px;}
   .ticketList .infoItem .hlTotal {font-size:1em; font-weight: 800;}
@@ -123,7 +126,27 @@
     justify-content: space-between;
   }
 
-.itemAddCode {border: 1px dashed var(--color-white-opacity); border-width: 1px 0 1px 0; margin: .5em 0; }
+.itemAddCode {
+  border: 1px dashed var(--color-white-opacity); 
+  border-width: 1px 0 1px 0; 
+  margin: .5em 0;
+  display: flex;
+  width: 100%;
+}
+.itemAddCode a {
+  display: flex;
+  align-items: center;
+  padding: 0 .8em;
+  margin: 0;
+  background-color: #FFF;
+  border: 0;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: .9em;
+  margin-left:5px;
+  background-color: var(---background-color-submit);
+}
+.itemAddCode a img {width: 22px; margin: 0;}
 
 .addCode {
     display: flex;
@@ -132,11 +155,11 @@
     border: 0;
     border-radius: 3px;
     background-color: rgba(255, 255, 255, .15);
-    transition: .2s;;
+    transition: .2s;
     font-weight: 700;
-    font-size: .8em;
     color:white;
     cursor: pointer;
+    outline: none;
 }
 .addCode:hover {opacity: .8;}
 .addCode:focus,.addCode:active,.addCode.active {
