@@ -3,7 +3,7 @@
         <header>
           <!-- ../assets/img/blockchainrio.png -->
           <h1><img src="../assets/img/logo-blockchainrio.png" class="logoClient" />Blockchain Rio</h1>
-          <h2><span>Pay Blockchain Rio</span> <strong>{{ vueNumberFormat(this.totalDue, {prefix: "R$"}) }}</strong></h2>
+          <h2><span>Pay Blockchain Rio</span> <strong>{{ vueNumberFormat(this.calcularTotal, {prefix: "R$"}) }}</strong></h2>
         </header>
         <div class="tickets">
           <img src="../assets/img/card.jpeg" class="ticketCard" />
@@ -25,7 +25,7 @@
                   <a href="" @click.prevent="" v-if="promoCode !== ''"><img src="../assets/img/check.svg" /></a>
                 </Transition>
             </p>
-            <p class="infoItem">Total due <strong class="hlTotal">{{ vueNumberFormat(this.totalDue, {prefix: "R$"}) }}</strong></p>
+            <p class="infoItem">Total due <strong class="hlTotal">{{ vueNumberFormat(this.calcularTotal, {prefix: "R$"}) }}</strong></p>
           </div>
         </div>
     </div>
@@ -59,6 +59,13 @@
         components: {
             Ticket
         },
+        computed: {
+           calcularTotal() {
+            // let valCode = this.promoCode != '' ? this.promoCode : 0
+            // return this.totalDue + parseFloat( valCode )
+            return this.totalDue
+          }
+        }
     }
 </script>
 

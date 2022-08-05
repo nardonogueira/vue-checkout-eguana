@@ -5,13 +5,15 @@
     </section>
  
     <p class="qtySelect">
-        <label>Qtd</label>
-        <select name="" v-model="ticket.qtd">
-            <option
-                v-for="index in 10"
-                :value="index"
-            >{{ index }}</option>
-        </select>
+        Qtd
+        <vue-number-input 
+            v-model="ticket.qtd" 
+            :min="1" 
+            :max="10" 
+            class="vueNumberInput"
+            size="small"
+            controls
+        ></vue-number-input>
     </p>
 
     <small>{{ ticket.description }}</small>
@@ -58,23 +60,14 @@
 
     section {display: flex; justify-content: space-between;}
 
-    .qtySelect {
-        display: flex;
-        font-size: .9em;
-        margin-bottom: .5em;
-    }
-    .qtySelect select, .qtySelect select:focus, .qtySelect select:active  {
-        margin-left: 4px;
-        background: var(--color-black-opacity);
-        color: #FFF;
-        font-size: .9em;
-        font-weight: 600;
-        border: 0;
-        outline: none;
-        cursor: pointer;
-    }
-    .qtySelect select:hover {
-        background: var(--color-black-opacity-hover);
+    .vue-number-input, .vue-number-input {
+        margin-left:10px;
     }
 
+    .qtySelect {
+        display: flex;
+        align-items: center;
+        margin-bottom: .5em;
+        font-size: .8em;
+    }
 </style>

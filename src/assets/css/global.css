@@ -83,6 +83,27 @@ select.frmControl {padding-left:.5em; }
 .divLine hr:first-child {margin-right: 10px; }
 .divLine hr:last-child {margin-left: 10px; }
 
+.vue-number-input {border: 0 !important; outline: none;}
+.vue-number-input input {
+  font-weight: 900; 
+  color: #FFF; 
+  background: var(--color-black-opacity) !important; 
+  border: 0;
+  cursor: pointer;
+}
+.vue-number-input button {
+  font-weight: 900; 
+  cursor: pointer;
+  border:0 !important;
+  color: red;
+}
+.vue-number-input button:disabled {
+  background-color: var(--color-white-opacity) !important;
+  cursor: default;
+}
+
+.vue-number-input--small>input {padding: 0;}
+.vue-number-input__input {border-color: var(--color-white-opacity) !important; text-align: center;}
 
 .fade-enter-active,
 .fade-leave-active {
