@@ -1,6 +1,6 @@
 <template>
     <div id="formBox">
-        <form action="#" @submit="onSubmit">
+        <form action="#" @submit.prevent="onSubmit">
 
             <p>
                 <a href="" class="gPay" @click.prevent="">
@@ -37,8 +37,8 @@
             </div>
 
             <p>
-                <label for="inpMail">Email</label>
-                <input type="text" class="frmControl" id="inpMail" />
+                <label>Email</label>
+                <input type="text" class="frmControl" v-model="email" />
             </p>
 
             <Transition name="slide-fade" appear >
@@ -46,14 +46,14 @@
                     <div>
                         <label>Card information</label>
                         <p>
-                            <input type="text" class="frmControl" name="" placeholder="1234 1234 1234 1234" v-mask="'#### #### #### ####'" />
+                            <input type="text" class="frmControl" v-model="card_number" placeholder="1234 1234 1234 1234" v-mask="'#### #### #### ####'" />
                         </p>
                         <p class="dFlex spcInp">
-                            <input type="text" class="frmControl" name="" placeholder="MM / YY" v-mask="'## / ##'" />
-                            <input type="text" class="frmControl" name="" placeholder="CVC" v-mask="'###'" />
+                            <input type="text" class="frmControl" v-model="due_date" name="" placeholder="MM / YY" v-mask="'## / ##'" />
+                            <input type="text" class="frmControl"  v-model="card_cvv" placeholder="CVV" v-mask="'###'" />
                         </p>
                         <p>
-                            <input type="text" class="frmControl" name="" placeholder="Name on card" />
+                            <input type="text" class="frmControl" v-model="card_holder_name" placeholder="Name on card" />
                         </p>
                     </div>
                 </div>
@@ -62,19 +62,19 @@
             <Transition name="slide-fade">
                 <div v-if="this.pay_boleto">
                     <p>
-                        <label for="inpName">Name</label>
-                        <input type="text" class="frmControl" id="inpName" />
+                        <label>Name</label>
+                        <input type="text" class="frmControl" v-model="name" />
                     </p>
                     <p>
-                        <label for="inpCpfCnpj">CPF/CNPJ</label>
-                        <input type="text" class="frmControl" placeholder="" name="cpfCnpj" />
+                        <label>CPF/CNPJ</label>
+                        <input type="text" class="frmControl" placeholder="" v-model="cpfCnpj" />
                     </p>
                 </div>
             </Transition>
 
             <label>Billing address</label>
             <p>
-                <select name="" class="frmControl" id="">
+                <select name="" class="frmControl" v-model="country">
                     <option value="">Country</option>
                 </select>
             </p>
@@ -90,19 +90,19 @@
             </p>
             <div v-if="addressFilled">
                 <p>
-                    <input type="text" class="frmControl" placeholder="Address line 2" name="addressLine2" />
+                    <input type="text" class="frmControl" placeholder="Address line 2" name="addressLine2" v-model="address2" />
                 </p>
                 <p class="dFlex spcInp">
-                    <input type="text" class="frmControl" placeholder="Neighborhood" name="" />
-                    <input type="text" class="frmControl" placeholder="City" name="" />
+                    <input type="text" class="frmControl" placeholder="Neighborhood" name="" v-model="neighborhood" />
+                    <input type="text" class="frmControl" placeholder="City" name="" v-model="city" />
                 </p>
                 <p class="dFlex spcInp">
-                    <select name="" class="frmControl" id="">
+                    <select name="" class="frmControl" v-model="state">
                         <option value="">State</option>
                     </select>
                 </p>
                 <p>
-                    <input type="text" class="frmControl" placeholder="Postal code" name="" />
+                    <input type="text" class="frmControl" placeholder="Postal code" name="" v-model="postal_code" />
                 </p>
             </div>
             <p v-if="!addressFilled">
@@ -119,13 +119,28 @@
 
 
 <script>
+    import Swal from 'sweetalert2'
+    import Tickets from '../services/tickets'
     export default {
         data(){
             return {
                 pay_card: true,
                 pay_boleto: false,
                 addressFilled: false,
-                address: ''
+                name: '',
+                cpfCnpj: '',
+                email: '',
+                card_number: '',
+                due_date: '',
+                card_cvv: '',
+                card_holder_name: '',
+                address: '',
+                address2: '',
+                neighborhood: '',
+                city: '',
+                state: '',
+                postal_code: '',
+                country: ''
             }
         },
         methods: {
@@ -143,8 +158,63 @@
             showFields() {
                 this.addressFilled = true
             },
-            onSubmit(e){
-                e.preventDefault()
+            onSubmit() {
+                console.log(this.promoCode);
+                Tickets.postOrders({
+                    pay_card: this.pay_card,
+                    pay_boleto: this.pay_boleto,
+                    email: this.email,
+                    name: this.name,
+                    cpfCnpj: this.cpfCnpj,
+                    card_number: this.card_number,
+                    due_date: this.due_date,
+                    card_cvv: this.card_cvv,
+                    card_holder_name: this.card_holder_name,
+                    country: this.country,
+                    address: this.address,
+                    address2: this.address2,
+                    neighborhood: this.neighborhood,
+                    city: this.city,
+                    state: this.state,
+                    postal_code: this.postal_code,
+                    promo_code: "",
+                    country: '',
+                    discount: 0,
+                    tickets: [{
+                        "id": 1,
+                        "quantity": 10,
+                        "price": 100
+                    }]
+                }).then(result => {
+                    if (result.status === 201) {
+                        this.name = '',
+                        this.cpfCnpj = '',
+                        this.email = '',
+                        this.card_number = '',
+                        this.due_date = '',
+                        this.card_cvv = '',
+                        this.card_holder_name = '',
+                        this.address = '',
+                        this.address2 = '',
+                        this.neighborhood = '',
+                        this.city = '',
+                        this.state = '',
+                        this.postal_code = '',
+                        this.country = '',
+                        Swal.fire({
+                            icon: 'success',
+                            // title: 'Sucesso!',
+                            text: 'Sua compra foi realizada com sucesso',
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            // title: 'Campo obrigatório',
+                            text: result.data.message,
+                        })
+                    }
+
+                })
             },
         },
     }

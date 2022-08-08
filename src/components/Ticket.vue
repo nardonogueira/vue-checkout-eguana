@@ -1,7 +1,7 @@
 <template>
     <section>
         <strong>{{ ticket.title }}</strong>
-        <span class="price">{{ vueNumberFormat(ticket.price, {prefix: "R$"}) }}</span>
+        <span class="price">{{ vueNumberFormat(this.priceCalculated, {prefix: "R$"}) }}</span>
     </section>
  
     <p class="qtySelect">
@@ -9,9 +9,13 @@
         <vue-number-input 
             v-model="ticket.qtd" 
             :min="1" 
-            :max="10" 
+            :max="20" 
             class="vueNumberInput"
             size="small"
+            @update:model-value="onUpdate" 
+            @change="onChange" 
+            @input="onInput"
+            @update-ticket="updateTicket"
             controls
         ></vue-number-input>
     </p>
@@ -25,18 +29,29 @@
         name: 'Ticket',
         props: {
             ticket: {},
-            indexTicket: ""
+            indexTicket: "",
         },
-        data() {
+        data(e) {
+            console.log(e)
             return {
                 title: '',
+                priceCalculated: this.ticket.price
             }
         },
         methods: {
-            addQty() {
-                alert("dev");
-            }
-        },
+            onUpdate(newValue, oldValue) {
+                // console.log(newValue);
+                // console.log(ticket.qtd);
+                this.priceCalculated = this.ticket.qtd * this.ticket.price
+                this.$emit('updateTicket', this.ticket)
+            },
+            onChange(event) {
+                console.log(event);
+            },
+            onInput(event) {
+                console.log(event);
+            },
+        }
     }
 </script>
 

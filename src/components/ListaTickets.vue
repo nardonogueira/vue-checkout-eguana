@@ -9,22 +9,50 @@
           <img src="../assets/img/card.jpeg" class="ticketCard" />
           <div class="ticketList">
             <ul>
-              <li v-for="(ticket, index) in tickets">
-                <Ticket v-bind:ticket="ticket" v-bind:indexTicket="index" />
+              <li v-for="(ticket, index) in Tickets">
+                <Ticket 
+                  v-bind:ticket="ticket" 
+                  v-bind:indexTicket="index" 
+                  @updateTicket="updateTicket($event)" 
+                />
               </li>
             </ul>
-            <p class="infoItem">Subtotal <span>{{ vueNumberFormat(this.subtotal, {prefix: "R$"}) }}</span></p>
+            
+            <p class="infoItem">Subtotal <span>{{ vueNumberFormat(this.total, {prefix: "R$"}) }}</span></p>
             <p class="infoItem itemAddCode">
-                <input 
-                  class="addCode" 
+                <input
+                  class="addCode"
                   v-model="promoCode"
                   v-bind:class="promoCode !== '' ? 'active' : ''"
                   placeholder="Add promotion code"
+                  :readonly= "this.valDiscount > 0"
                 />
                 <Transition name="bounce">
-                  <a href="" @click.prevent="" v-if="promoCode !== ''"><img src="../assets/img/check.svg" /></a>
+                  <a href="" @click.prevent="calcDiscount" v-if="promoCode !== '' && this.valDiscount == 0"><img src="../assets/img/check.svg" /></a>
                 </Transition>
+
+                <Transition name="bounce">
+                  <a href="" @click.prevent="removeDiscount" v-if="this.valDiscount > 0" class="removeCode"><img src="../assets/img/close.svg" /></a>
+                </Transition>
+
             </p>
+            <Transition name="bounce">
+              <p
+                v-if="this.messageCode != '' && this.promoCode !== '' && classMessageCode !== ''"
+                class="infoItem messageCode"
+                v-bind:class="classMessageCode"
+              >{{ this.messageCode }}</p>
+            </Transition>
+
+            <Transition name="slide-fade">
+              <p
+                v-if="this.valDiscount > 0"
+                class="infoItem"
+              >Desconto cupom promocional
+                <strong>{{ vueNumberFormat(this.valDiscount, {prefix: "R$"}) }}</strong>
+              </p>
+            </Transition>
+
             <p class="infoItem">Total due <strong class="hlTotal">{{ vueNumberFormat(this.calcularTotal, {prefix: "R$"}) }}</strong></p>
           </div>
         </div>
@@ -33,37 +61,80 @@
 
 
 <script>
-    import Ticket from '../components/Ticket.vue'
+  import Tickets from '../services/tickets'
+  import Ticket from '../components/Ticket.vue'
     export default {
         data() {
             return {
+                Tickets: [],
                 promoCode: '',
-                subtotal: 885,
-                totalDue: 885,
-                tickets: [{
-                        title: "BlockchaIn Rio Festival Passaporte",
-                        qtd: 1,
-                        price: 590,
-                        description: "O maior festival de blockchain da América Latina, de 1 a 4 de setembro no Píer Mauá (RJ) | Direito ao BInRio NFT | De R$680 por R$590"
-                    }, {
-                        title: "BlockchaIn Rio Festival Passaporte - Meia-Entrada",
-                        qtd: 1,
-                        price: 295,
-                        description: "Meia-entrada para estudantes e idosos | Último Lote Promocional - Direito ao BInRio NFT | De R$340 por R$295 | A entrada de menores seguirá a regulamentação do Estatuto da Criança e Adolescente (ECA)"
-                    }
-                ]
+                subtotal: 0,
+                totalDue: 0,
+                valDiscount: 0,
+                messageCode: '',
+                classMessageCode: '',
+                total: 0
             };
         },
-        // methods: {
-        // },
+        methods: {
+          async ticketList() {
+            await Tickets.list().then(result => {
+                this.Tickets = result.data
+            })
+          },
+
+          updateTicket(updatedTicket) {
+            // console.log(updatedTicket)
+            this.total = this.totalTickets
+            this.qtd = updatedTicket
+          },
+
+          async calcDiscount() {
+            Tickets.getPromoCode(this.promoCode).then(result => {
+              if (result.data.length > 0) {
+                if (result.data[0].type === 'fixed') {
+                  this.valDiscount = parseFloat(result.data[0].discount);
+                  this.messageCode = "Cupom válido"
+                  this.classMessageCode = "messageCode-success";
+                } else {
+                  this.valDiscount = parseFloat((this.total * result.data[0].discount) / 100);
+                  this.messageCode = "Cupom válido"
+                  this.classMessageCode = "messageCode-success";
+                }
+
+              } else {
+                this.valDiscount = 0
+                this.messageCode = "Cupom não encontrado."
+                this.classMessageCode = "messageCode-error";
+              }
+            })
+          },
+
+          removeDiscount() {
+            this.promoCode = ''
+            this.valDiscount = 0
+            this.messageCode = ''
+            this.classMessageCode = ''
+          }
+        },
         components: {
-            Ticket
+            Ticket,
+        },
+        created() {
+          this.ticketList()
         },
         computed: {
-           calcularTotal() {
-            // let valCode = this.promoCode != '' ? this.promoCode : 0
-            // return this.totalDue + parseFloat( valCode )
-            return this.totalDue
+          calcularTotal(withDiscount=true) {
+            if (withDiscount) {
+              return this.total - this.valDiscount
+            } else {
+              return this.total
+            }
+          },
+
+          totalTickets() {
+            // console.log("AAAA", this.Tickets)
+            return this.Tickets != undefined ? this.Tickets.map(ticket => (ticket.price * ticket.qtd)).reduce((total, amount) => total + amount) : 0
           }
         }
     }
@@ -80,7 +151,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
+  }
 
   h1 {
     display: flex;
@@ -134,8 +205,8 @@
   }
 
 .itemAddCode {
-  border: 1px dashed var(--color-white-opacity); 
-  border-width: 1px 0 1px 0; 
+  border: 1px dashed var(--color-white-opacity);
+  border-width: 1px 0 1px 0;
   margin: .5em 0;
   display: flex;
   width: 100%;
@@ -152,6 +223,9 @@
   font-size: .9em;
   margin-left:5px;
   background-color: var(---background-color-submit);
+}
+.itemAddCode a.removeCode {
+  background-color: var(---background-color-error);
 }
 .itemAddCode a img {width: 22px; margin: 0;}
 
@@ -182,6 +256,20 @@
 }
 .addCode:focus::placeholder {
   color: var(--vt-c-black-softx);
+}
+
+.messageCode {
+  font-size: .9em;
+  margin: 0 5px 1em 5px;
+  background-color: var(--color-black-opacity-hover);
+  border-radius:7px;
+}
+.messageCode-success {
+  color: var(---background-color-success);
+  font-weight:700;
+}
+.messageCode-error {
+  color: var(---background-color-error);
 }
 
   .qtyButton {
