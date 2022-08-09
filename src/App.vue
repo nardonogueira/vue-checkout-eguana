@@ -27,7 +27,7 @@ export default {
     height: 100vh;
     position: fixed;
     z-index: 0;
-    
+
     border-right: 10px solid rgba(0, 0, 0, .4);
     background: -moz-linear-gradient(45deg, rgba(11,75,139,0) 50%, rgba(0,0,0,0.3000849697885196) 100%);
     background: -webkit-linear-gradient(45deg, rgba(11,75,139,0) 50%, rgba(0,0,0,0.3000849697885196) 100%);
@@ -51,8 +51,6 @@ export default {
     left: 0;
     width: 50vw;
     height: 100vh;
-    /* background: rgb(11,75,139); */
-    /* background-color: #300a62; */
   }
 
   #formContent {

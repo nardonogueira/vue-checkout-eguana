@@ -3,23 +3,22 @@
         <strong>{{ ticket.title }}</strong>
         <span class="price">{{ vueNumberFormat(this.priceCalculated, {prefix: "R$"}) }}</span>
     </section>
- 
+
     <p class="qtySelect">
         Qtd
-        <vue-number-input 
-            v-model="ticket.qtd" 
-            :min="1" 
-            :max="20" 
+        <vue-number-input
+            v-model="ticket.qtd"
+            :min="1"
+            :max="20"
             class="vueNumberInput"
             size="small"
-            @update:model-value="onUpdate" 
-            @change="onChange" 
+            @update:model-value="onUpdate"
+            @change="onChange"
             @input="onInput"
             @update-ticket="updateTicket"
             controls
         ></vue-number-input>
     </p>
-
     <small>{{ ticket.description }}</small>
 </template>
 
@@ -28,28 +27,18 @@
     export default {
         name: 'Ticket',
         props: {
-            ticket: {},
-            indexTicket: "",
+            ticket: {}
         },
-        data(e) {
-            console.log(e)
+        data() {
             return {
                 title: '',
                 priceCalculated: this.ticket.price
             }
         },
         methods: {
-            onUpdate(newValue, oldValue) {
-                // console.log(newValue);
-                // console.log(ticket.qtd);
+            onUpdate() {
                 this.priceCalculated = this.ticket.qtd * this.ticket.price
                 this.$emit('updateTicket', this.ticket)
-            },
-            onChange(event) {
-                console.log(event);
-            },
-            onInput(event) {
-                console.log(event);
             },
         }
     }
@@ -69,16 +58,13 @@
         line-height: 1.4em;
     }
     .price {
-        font-size:.9em; 
+        font-size:.9em;
         margin-left: .5em;
     }
-
     section {display: flex; justify-content: space-between;}
-
     .vue-number-input, .vue-number-input {
         margin-left:10px;
     }
-
     .qtySelect {
         display: flex;
         align-items: center;

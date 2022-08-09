@@ -41,7 +41,7 @@
                 <input type="text" class="frmControl" v-model="email" />
             </p>
 
-            <Transition name="slide-fade" appear >
+            <Transition name="slide-fade" appear>
                 <div v-if="this.pay_card">
                     <div>
                         <label>Card information</label>
@@ -88,26 +88,32 @@
                     name="address"
                 />
             </p>
-            <div v-if="addressFilled">
-                <p>
-                    <input type="text" class="frmControl" placeholder="Address line 2" name="addressLine2" v-model="address2" />
+            
+            <Transition name="slide-fade">
+                <div v-if="addressFilled">
+                    <p>
+                        <input type="text" class="frmControl" placeholder="Address line 2" name="addressLine2" v-model="address2" />
+                    </p>
+                    <p class="dFlex spcInp">
+                        <input type="text" class="frmControl" placeholder="Neighborhood" name="" v-model="neighborhood" />
+                        <input type="text" class="frmControl" placeholder="City" name="" v-model="city" />
+                    </p>
+                    <p class="dFlex spcInp">
+                        <select name="" class="frmControl" v-model="state">
+                            <option value="">State</option>
+                        </select>
+                    </p>
+                    <p>
+                        <input type="text" class="frmControl" placeholder="Postal code" name="" v-model="postal_code" />
+                    </p>
+                </div>
+            </Transition>
+            
+            <Transition name="slide-fade">
+                <p v-if="!addressFilled">
+                    <a href="#" @click.prevent="showFields" class="showFields">Enter address manually</a>
                 </p>
-                <p class="dFlex spcInp">
-                    <input type="text" class="frmControl" placeholder="Neighborhood" name="" v-model="neighborhood" />
-                    <input type="text" class="frmControl" placeholder="City" name="" v-model="city" />
-                </p>
-                <p class="dFlex spcInp">
-                    <select name="" class="frmControl" v-model="state">
-                        <option value="">State</option>
-                    </select>
-                </p>
-                <p>
-                    <input type="text" class="frmControl" placeholder="Postal code" name="" v-model="postal_code" />
-                </p>
-            </div>
-            <p v-if="!addressFilled">
-                <a href="#" @click.prevent="showFields" class="showFields">Enter address manually</a>
-            </p>
+            </Transition>
 
             <p>
                 <input type="submit" class="submitButton" value="Pay" />

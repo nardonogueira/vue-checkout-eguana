@@ -1,7 +1,6 @@
 <template>
     <div id="ticketBox">
         <header>
-          <!-- ../assets/img/blockchainrio.png -->
           <h1><img src="../assets/img/logo-blockchainrio.png" class="logoClient" />Blockchain Rio</h1>
           <h2><span>Pay Blockchain Rio</span> <strong>{{ vueNumberFormat(this.calcularTotal, {prefix: "R$"}) }}</strong></h2>
         </header>
@@ -10,14 +9,13 @@
           <div class="ticketList">
             <ul>
               <li v-for="(ticket, index) in Tickets">
-                <Ticket 
-                  v-bind:ticket="ticket" 
-                  v-bind:indexTicket="index" 
-                  @updateTicket="updateTicket($event)" 
+                <Ticket
+                  v-bind:ticket="ticket"
+                  @updateTicket="updateInfoTicket(e)"
                 />
               </li>
             </ul>
-            
+
             <p class="infoItem">Subtotal <span>{{ vueNumberFormat(this.total, {prefix: "R$"}) }}</span></p>
             <p class="infoItem itemAddCode">
                 <input
@@ -63,87 +61,93 @@
 <script>
   import Tickets from '../services/tickets'
   import Ticket from '../components/Ticket.vue'
-    export default {
-        data() {
-            return {
-                Tickets: [],
-                promoCode: '',
-                subtotal: 0,
-                totalDue: 0,
-                valDiscount: 0,
-                messageCode: '',
-                classMessageCode: '',
-                total: 0
-            };
-        },
-        methods: {
-          async ticketList() {
-            await Tickets.list().then(result => {
-                this.Tickets = result.data
-            })
-          },
+  export default {
+    data() {
+      return {
+          Tickets: [],
+          promoCode: '',
+          subtotal: 0,
+          totalDue: 0,
+          valDiscount: 0,
+          discount: 0,
+          typeDiscount: '',
+          messageCode: '',
+          classMessageCode: '',
+          total: 0
+      };
+    },
+    methods: {
+      async ticketList() {
+        await Tickets.list().then(result => {
+          this.Tickets = result.data
+        })
+      },
 
-          updateTicket(updatedTicket) {
-            // console.log(updatedTicket)
-            this.total = this.totalTickets
-            this.qtd = updatedTicket
-          },
+      updateInfoTicket(updatedTicket) {
+        this.qtd = updatedTicket
+        this.total = this.totalTickets
+      },
 
-          async calcDiscount() {
-            Tickets.getPromoCode(this.promoCode).then(result => {
-              if (result.data.length > 0) {
-                if (result.data[0].type === 'fixed') {
-                  this.valDiscount = parseFloat(result.data[0].discount);
-                  this.messageCode = "Cupom válido"
-                  this.classMessageCode = "messageCode-success";
-                } else {
-                  this.valDiscount = parseFloat((this.total * result.data[0].discount) / 100);
-                  this.messageCode = "Cupom válido"
-                  this.classMessageCode = "messageCode-success";
-                }
-
-              } else {
-                this.valDiscount = 0
-                this.messageCode = "Cupom não encontrado."
-                this.classMessageCode = "messageCode-error";
-              }
-            })
-          },
-
-          removeDiscount() {
-            this.promoCode = ''
-            this.valDiscount = 0
-            this.messageCode = ''
-            this.classMessageCode = ''
-          }
-        },
-        components: {
-            Ticket,
-        },
-        created() {
-          this.ticketList()
-        },
-        computed: {
-          calcularTotal(withDiscount=true) {
-            if (withDiscount) {
-              return this.total - this.valDiscount
+      async calcDiscount() {
+        Tickets.getPromoCode(this.promoCode).then(result => {
+          if (result.data.length > 0) {
+            if (result.data[0].type === 'fixed') {
+              this.discount = parseFloat(result.data[0].discount);
+              this.typeDiscount = 'fixed'
+              this.messageCode = "Cupom válido"
+              this.classMessageCode = "messageCode-success";
             } else {
-              return this.total
+              this.discount = parseFloat(result.data[0].discount);
+              this.typeDiscount = 'percent'
+              this.messageCode = "Cupom válido"
+              this.classMessageCode = "messageCode-success";
             }
-          },
+          } else {
+            this.valDiscount = 0
+            this.discount = 0
+            this.typeDiscount = ''
+            this.messageCode = "Cupom não encontrado."
+            this.classMessageCode = "messageCode-error"
+          }
+        })
+      },
 
-          totalTickets() {
-            // console.log("AAAA", this.Tickets)
-            return this.Tickets != undefined ? this.Tickets.map(ticket => (ticket.price * ticket.qtd)).reduce((total, amount) => total + amount) : 0
+      removeDiscount() {
+        this.promoCode = ''
+        this.discount = 0
+        this.valDiscount = 0
+        this.messageCode = ''
+        this.classMessageCode = ''
+      }
+    },
+    components: {
+        Ticket
+    },
+    created() {
+      this.ticketList()
+    },
+    computed: {
+      calcularTotal() {
+        if (this.discount !== '') {
+          if (this.typeDiscount === 'percent') {
+            this.valDiscount = parseFloat((this.total * this.discount) / 100);
+          } else {
+            this.valDiscount = parseFloat(this.discount)
           }
         }
+        return this.total - this.valDiscount
+      },
+
+      totalTickets() {
+        return this.Tickets != undefined ? this.Tickets.map(ticket => (ticket.price * ticket.qtd)).reduce((total, amount) => total + amount) : 0
+      }
     }
+  }
 </script>
 
 
 
 <style scoped>
-
   #ticketBox {max-width: 450px; }
   #ticketBox header {
     border-bottom: 1px dashed var(--color-white-opacity);
@@ -242,6 +246,7 @@
     cursor: pointer;
     outline: none;
 }
+.addCode.active:read-only {cursor: default; font-style: italic; color:#777; }
 .addCode:hover {opacity: .8;}
 .addCode:focus,.addCode:active,.addCode.active {
     width:100%;
